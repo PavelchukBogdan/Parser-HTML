@@ -1,0 +1,67 @@
+<databaseChangeLog  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet  author="Bogdan"  id="1">
+
+        <createTable  tableName="word_statistic">
+            <column  name="site_url"  type="varchar">
+                 <constraints nullable="true"/>
+            </column>
+            <column  name="word"  type="varchar(30)">
+                  <constraints nullable="true"/>
+            </column>
+            <column  name="count"  type="bigint">
+                 <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+        <createTable  tableName="site">
+            <column  name="url"  type="varchar">
+                 <constraints nullable="true"/>
+            </column>
+        </createTable>
+
+    </changeSet>
+
+    <changeSet  author="Bogdan"  id="2">
+
+        <addPrimaryKey
+
+                        columnNames="site_url, word"
+                        constraintName="pk_word_statistic"
+                        schemaName="public"
+                        tableName="word_statistic"/>
+    </changeSet>
+
+    <changeSet  author="Bogdan"  id="3">
+
+        <addPrimaryKey
+
+                columnNames="url"
+                constraintName="pk_site"
+                schemaName="public"
+                tableName="site"/>
+    </changeSet>
+
+
+    <changeSet  author="Bogdan"  id="4">
+
+        <addForeignKeyConstraint  baseColumnNames="site_url"
+                                  baseTableName="word_statistic"
+                                  baseTableSchemaName="public"
+                                  constraintName="fk_word_statistic_site"
+                                  onDelete="CASCADE"
+                                  onUpdate="CASCADE"
+                                  referencedColumnNames="url"
+                                  referencedTableName="site"
+                                  referencedTableSchemaName="public"/>
+    </changeSet>
+
+
+        </databaseChangeLog>
+
+
+
+
+
+
+
